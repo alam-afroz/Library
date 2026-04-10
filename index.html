@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+     <h1>Library</h1>
+    </header>
+    <hr style="margin: 4px ; opacity:15%">
+   <button class="addBook">Add Book</button>
+    <div class="container"></div>
+    <dialog>
+      <div class="form">
+        <button id="form_close" formmethod="dialog" value="cancel"> &#10060 </button>
+        <h4>Please add a Book</h4>
+        <form>
+          <p>
+            <label for="book_title">Book Title</label>
+            <input
+              type="text"
+              id="book_title"
+              name="book_title"
+              maxlength="70"
+              placeholder="Book Title"
+              required
+            />
+          </p>
+          <p>
+            <label for="book_author">Author's Name</label>
+            <input
+              type="text"
+              id="book_author"
+              name="book_author"
+              maxlength="50"
+              placeholder="Author's Name"
+              required
+            />
+          </p>
+          <p>
+            <label for="book_pages">Pages</label>
+            <input
+              type="number"
+              id="book_pages"
+              name="book_pages"
+              min="0"
+              max="1000"
+              placeholder="10-1000"
+              required
+            />
+          </p>
+          <p>
+            <label for="read_status">Already Read?</label>
+            <input
+              type="text"
+              id="read_status"
+              name="read_status"
+              maxlength="20"
+              placeholder="Yes/No"
+              required
+            />
+          </p>
+          <button type="submit" class="submit" value="default">Add Book</button>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
