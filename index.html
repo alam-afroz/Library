@@ -11,7 +11,9 @@
      <h1>Library</h1>
     </header>
     <hr style="margin: 4px ; opacity:15%">
-   <button class="addBook">Add Book</button>
+    <div class="nav"> 
+    <button class="addBook">Add Book</button>
+    </div>
     <div class="container"></div>
     <dialog>
       <div class="form">
@@ -58,7 +60,7 @@
               type="text"
               id="read_status"
               name="read_status"
-              maxlength="20"
+             pattern="[yY][eE][sS]|[Nn][Oo]"
               placeholder="Yes/No"
               required
             />

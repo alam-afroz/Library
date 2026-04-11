@@ -83,13 +83,13 @@ function userAddedBooks() {
   let addedBookTitle = addedBook.get("book_title");
   let addedBookAuthor = addedBook.get("book_author");
   let addedBookPages = addedBook.get("book_pages");
-  let addedBookRead = addedBook.get("read_status");
+  let addedBookRead = addedBook.get("read_status").toUpperCase();
   j = myLibrary.length;
   addBookToLibrary(
     addedBookTitle,
     addedBookAuthor,
     addedBookPages,
-    addedBookPages,
+    addedBookRead,
   );
   form.reset();
 }
