@@ -9,8 +9,10 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.read = read;
 }
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
@@ -39,7 +41,14 @@ function showBook() {
     bookCard.appendChild(bookPages);
     const bookRead = document.createElement("p");
     bookRead.classList.add("read");
-    bookRead.textContent = `Read :${myLibrary[i].read}`;
+    if (myLibrary[i].read === true) {
+      bookRead.textContent = "Already Read";
+      bookRead.style.color = "skyblue";
+    }
+    if (myLibrary[i].read === false) {
+      bookRead.textContent = "Not Read yet";
+      bookRead.style.color = "pink";
+    }
     bookCard.appendChild(bookRead);
     const removeBook = document.createElement("button");
     removeBook.classList.add("remove_book");
@@ -47,7 +56,28 @@ function showBook() {
     bookCard.appendChild(removeBook);
     bookCard.dataset.id = myLibrary[i].id;
     let uuid = bookCard.dataset.id;
-
+    const readStatus = document.createElement("button");
+    readStatus.id = "for_read_status";
+    readStatus.textContent = myLibrary[i].read === false ? "Read" : "Not Read";
+    readStatus.style.backgroundColor = "white";
+    let index = i;
+    bookCard.appendChild(readStatus);
+    readStatus.addEventListener("click", () => {
+      myLibrary[index].toggleRead();
+      if (myLibrary[index].read === true) {
+        bookRead.textContent = "Already Read";
+        bookRead.style.color = "skyblue";
+        readStatus.textContent = "Not Read";
+        readStatus.style.backgroundColor = "pink";
+      }
+      if (myLibrary[index].read === false) {
+        bookRead.textContent = "Not Read yet";
+        bookRead.style.color = "pink";
+        readStatus.textContent = "Read";
+        readStatus.style.backgroundColor = "white";
+      }
+    });
+    bookCard.dataset.id = myLibrary[i].id;
     removeBook.addEventListener("click", () => {
       const indexOfBook = myLibrary.findIndex((book) => book.id === uuid);
       myLibrary.splice(indexOfBook, 1);
@@ -78,12 +108,18 @@ form.addEventListener("submit", (event) => {
   showBook();
 });
 function userAddedBooks() {
-  dialogBox.close();
   addedBook = new FormData(event.target);
+  dialogBox.close();
   let addedBookTitle = addedBook.get("book_title");
   let addedBookAuthor = addedBook.get("book_author");
   let addedBookPages = addedBook.get("book_pages");
-  let addedBookRead = addedBook.get("read_status").toUpperCase();
+  let addedBookRead;
+  if (addedBook.get("read_status").toLowerCase() === "yes") {
+    addedBookRead = true;
+  }
+  if (addedBook.get("read_status").toLowerCase() === "no") {
+    addedBookRead = false;
+  }
   j = myLibrary.length;
   addBookToLibrary(
     addedBookTitle,
@@ -93,11 +129,13 @@ function userAddedBooks() {
   );
   form.reset();
 }
-addBookToLibrary("Vinland Saga", "Makoto Yukimura", 464, "yes");
-addBookToLibrary("Who Goes There?", "John W. Campbell", 168, "no");
-addBookToLibrary("Think Like a Programmer", "V.Anton Spraul", 256, "no");
+addBookToLibrary("Vinland Saga", "Makoto Yukimura", 464, false);
+addBookToLibrary("Who Goes There?", "John W. Campbell", 168, true);
+addBookToLibrary("Think Like a Programmer", "V.Anton Spraul", 256, false);
 showBook();
 function removeBookFromLibrary() {
   let uuid = bookCard.dataset.id;
   myLibrary.filter((books) => (books.id = uuid));
 }
+
+// thank you
