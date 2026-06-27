@@ -1,7 +1,7 @@
 const myLibrary = [];
 
 class Book {
-  constructor(title, author, pages, read) {
+  constructor(title, author, pages, read = "no") {
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
@@ -133,6 +133,47 @@ formClose.addEventListener("click", () => {
 
 let addedBook;
 
+const inputTitle = document.getElementById("book_title");
+const inputAuthor = document.getElementById("book_author");
+const inputPages = document.getElementById("book_pages");
+inputTitle.addEventListener("invalid", () => {
+  if (!inputTitle.checkValidity()) {
+    inputTitle.setCustomValidity("Please Enter Book's title");
+  }
+});
+inputTitle.addEventListener("input", () => {
+  inputTitle.setCustomValidity("");
+});
+
+inputAuthor.addEventListener("invalid", () => {
+  if (!inputAuthor.checkValidity()) {
+    inputAuthor.setCustomValidity("Please Enter Author's name");
+  }
+});
+inputAuthor.addEventListener("input", () => {
+  inputAuthor.setCustomValidity("");
+});
+
+inputPages.addEventListener("invalid", () => {
+  if (inputPages.validity.valueMissing) {
+    inputPages.setCustomValidity("Please Enter total Pages in the book");
+  }
+});
+inputPages.addEventListener("input", () => {
+  inputPages.setCustomValidity("");
+});
+
+const inputRead = document.getElementById("read_status");
+inputRead.addEventListener("invalid", () => {
+  if (!inputRead.checkValidity()) {
+    inputRead.setCustomValidity(
+      "Please Enter Yes or No in lower/upper/mixed case",
+    );
+  }
+});
+inputRead.addEventListener("input", () => {
+  inputRead.setCustomValidity("");
+});
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -156,6 +197,13 @@ function userAddedBooks() {
   }
 
   if (addedBook.get("read_status").toLowerCase() === "no") {
+    addedBookRead = false;
+  }
+  if (
+    addedBook.get("read_status").toLowerCase() === null ||
+    addedBook.get("read_status").toLowerCase() === undefined ||
+    addedBook.get("read_status").toLowerCase() === ""
+  ) {
     addedBookRead = false;
   }
 
